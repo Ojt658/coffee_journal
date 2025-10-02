@@ -33,11 +33,27 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+private val LightCoffeeTheme = lightColorScheme(
+    primary = Espresso,
+    secondary = Coffee,
+    tertiary = Almond,
+    primaryContainer = Caramel,
+    background = Caramel
+)
+
+private val DarkCoffeeTheme = darkColorScheme(
+    primary = Vanilla,
+    secondary = Almond,
+    tertiary = Caramel,
+    primaryContainer = Coffee,
+    background = Coffee
+)
+
 @Composable
 fun CoffeeJournalTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -46,8 +62,8 @@ fun CoffeeJournalTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> DarkCoffeeTheme
+        else -> LightCoffeeTheme
     }
 
     MaterialTheme(
