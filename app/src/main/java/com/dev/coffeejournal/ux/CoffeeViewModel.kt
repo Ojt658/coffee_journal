@@ -22,12 +22,25 @@ class CoffeeViewModel(private val dao: CoffeeDao) : ViewModel() {
             initialValue = emptyList()
         )
 
+    val allFavourites: StateFlow<List<Coffee>> = dao.getAllFavourites()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
     /**
      * Inserts a new coffee into the database on a background thread.
      */
     fun addCoffee(coffee: Coffee) {
         viewModelScope.launch {
             dao.insert(coffee)
+        }
+    }
+
+    fun updateCoffee(coffee: Coffee) {
+        viewModelScope.launch {
+            dao.update(coffee)
         }
     }
 }

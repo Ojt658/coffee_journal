@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Entity(tableName = "coffees")
@@ -18,7 +19,8 @@ data class Coffee (
     val origin: String,
     val process: String,
     val roastProfile: String,
-    val flavourProfile: String
+    val flavourProfile: String,
+    val isFavorite: Boolean = false
 )
 
 @Dao
@@ -26,9 +28,26 @@ interface CoffeeDao {
     @Insert
     suspend fun insert(coffee: Coffee)
 
+    @Update
+    suspend fun update(coffee: Coffee)
+
     @Query("SELECT * FROM coffees ORDER BY name ASC")
     fun getAllCoffees(): Flow<List<Coffee>>
 
+    @Query("SELECT * FROM coffees WHERE isFavorite = 1")
+    fun getAllFavourites(): Flow<List<Coffee>>
+
+    @Query("SELECT * FROM coffees ORDER BY origin ASC")
+    fun getAllCoffeesByOrigin(): Flow<List<Coffee>>
+
+    @Query("SELECT * FROM coffees ORDER BY process ASC")
+    fun getAllCoffeesByProcess(): Flow<List<Coffee>>
+
+    @Query("SELECT * FROM coffees ORDER BY roastProfile ASC")
+    fun getAllCoffeesByRoastProfile(): Flow<List<Coffee>>
+
+    @Query("SELECT * FROM coffees WHERE id = :id")
+    fun getCoffee(id: Int): Flow<Coffee>
 }
 
 @Database(entities = [Coffee::class], version = 1, exportSchema = false)
