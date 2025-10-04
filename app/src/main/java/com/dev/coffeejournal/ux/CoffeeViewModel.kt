@@ -18,7 +18,7 @@ class CoffeeViewModel(private val dao: CoffeeDao) : ViewModel() {
     val allCoffees: StateFlow<List<Coffee>> = dao.getAllCoffees()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000L),
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
 

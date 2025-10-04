@@ -11,21 +11,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.flow.Flow
 
-@Entity
+@Entity(tableName = "coffees")
 data class Coffee (
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int? = null,
     val name: String,
     val origin: String,
-    val processing: String,
+    val process: String,
     val roastProfile: String,
     val flavourProfile: String
 )
+
 @Dao
 interface CoffeeDao {
     @Insert
     suspend fun insert(coffee: Coffee)
 
-    @Query("SELECT * FROM coffee ORDER BY name ASC")
+    @Query("SELECT * FROM coffees ORDER BY name ASC")
     fun getAllCoffees(): Flow<List<Coffee>>
 
 }

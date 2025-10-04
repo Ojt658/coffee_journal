@@ -25,27 +25,22 @@
         <activity
             android:name=".activities.RecordActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CoffeeJournal"/>
         <activity
             android:name=".activities.FavouritesActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CoffeeJournal"/>
         <activity
             android:name=".activities.CoffeeInfoActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CoffeeJournal"/>
         <activity
             android:name=".activities.RecipesActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CoffeeJournal"/>
         <activity
             android:name=".activities.FlavourWheelActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.CoffeeJournal"/>
     </application>
 
