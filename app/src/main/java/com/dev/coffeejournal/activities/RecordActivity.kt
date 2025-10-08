@@ -38,14 +38,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.dev.coffeejournal.ui.AppBar
-import com.dev.coffeejournal.ui.CoffeeViewModel
-import com.dev.coffeejournal.ui.RecipeViewModel
+import com.dev.coffeejournal.data.models.CoffeeViewModel
+import com.dev.coffeejournal.data.models.RecipeViewModel
 import com.dev.coffeejournal.R
-import com.dev.coffeejournal.data.Coffee
-import com.dev.coffeejournal.data.CoffeeDatabase
-import com.dev.coffeejournal.data.RecipeDatabase
-import com.dev.coffeejournal.ui.CoffeeViewModelFactory
-import com.dev.coffeejournal.ui.RecipeViewModelFactory
+import com.dev.coffeejournal.data.databases.Coffee
+import com.dev.coffeejournal.data.databases.CoffeeDatabase
+import com.dev.coffeejournal.data.databases.RecipeDatabase
+import com.dev.coffeejournal.data.models.CoffeeViewModelFactory
+import com.dev.coffeejournal.data.models.RecipeViewModelFactory
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
 import com.dev.coffeejournal.ui.NewCoffeeForm
 

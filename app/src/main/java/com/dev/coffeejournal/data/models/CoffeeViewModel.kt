@@ -1,9 +1,9 @@
-package com.dev.coffeejournal.ui
+package com.dev.coffeejournal.data.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dev.coffeejournal.data.Coffee
-import com.dev.coffeejournal.data.CoffeeDao
+import com.dev.coffeejournal.data.databases.Coffee
+import com.dev.coffeejournal.data.databases.CoffeeDao
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn

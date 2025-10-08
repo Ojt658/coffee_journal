@@ -36,7 +36,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.dev.coffeejournal.data.Coffee
+import com.dev.coffeejournal.data.databases.Coffee
+import com.dev.coffeejournal.data.models.CoffeeViewModel
 
 /**
  * A custom app bar composable.

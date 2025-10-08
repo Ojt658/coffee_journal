@@ -29,10 +29,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.dev.coffeejournal.ui.AppBar
 import com.dev.coffeejournal.R
-import com.dev.coffeejournal.data.Coffee
-import com.dev.coffeejournal.data.CoffeeDatabase
-import com.dev.coffeejournal.ui.CoffeeViewModel
-import com.dev.coffeejournal.ui.CoffeeViewModelFactory
+import com.dev.coffeejournal.data.databases.Coffee
+import com.dev.coffeejournal.data.databases.CoffeeDatabase
+import com.dev.coffeejournal.data.models.CoffeeViewModel
+import com.dev.coffeejournal.data.models.CoffeeViewModelFactory
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
 import com.dev.coffeejournal.ui.CoffeeCardList
 import com.dev.coffeejournal.ui.CoffeeCardSheet

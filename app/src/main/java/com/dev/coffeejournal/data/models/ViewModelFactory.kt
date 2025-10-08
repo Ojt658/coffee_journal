@@ -1,9 +1,9 @@
-package com.dev.coffeejournal.ui
+package com.dev.coffeejournal.data.models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dev.coffeejournal.data.CoffeeDao
-import com.dev.coffeejournal.data.RecipeDao
+import com.dev.coffeejournal.data.databases.CoffeeDao
+import com.dev.coffeejournal.data.databases.RecipeDao
 
 /**
  * Factory for creating [CoffeeViewModel] instances.

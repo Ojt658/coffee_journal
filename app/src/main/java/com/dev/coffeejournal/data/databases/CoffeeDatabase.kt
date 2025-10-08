@@ -1,4 +1,4 @@
-package com.dev.coffeejournal.data
+package com.dev.coffeejournal.data.databases
 
 import android.content.Context
 import androidx.room.Dao
