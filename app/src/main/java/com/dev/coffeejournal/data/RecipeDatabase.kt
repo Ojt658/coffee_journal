@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Entity(tableName = "recipes")
 data class Recipe (
     @PrimaryKey(autoGenerate = true) var id: Int? = null,
-    var coffee: Coffee,
+    var coffeeId: Int,
     var brewMethod: String,
     var dose: Int,
     var yield: Int,

@@ -40,6 +40,7 @@ import com.dev.coffeejournal.data.CoffeeDatabase
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
 import com.dev.coffeejournal.ux.CoffeeCardList
 import com.dev.coffeejournal.ux.CoffeeCardSheet
+import com.dev.coffeejournal.ux.NewCoffeeForm
 
 
 class CoffeeInfoActivity : ComponentActivity() {
@@ -146,65 +147,6 @@ fun CoffeeInfoPage(viewModel: CoffeeViewModel, modifier: Modifier = Modifier, on
                     CoffeeCardList(coffee = coffee, onCoffeeSelected = onCoffeeSelected, viewModel = viewModel)
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun NewCoffeeForm(onAddCoffee: (Coffee) -> Unit, modifier: Modifier = Modifier) {
-    var name by remember { mutableStateOf("") }
-    var origin by remember { mutableStateOf("") }
-    var process by remember { mutableStateOf("") }
-    var roastProfile by remember { mutableStateOf("") }
-    var flavourProfile by remember { mutableStateOf("") }
-
-    val scrollState = rememberScrollState()
-
-    val textFieldColors = TextFieldDefaults.colors(
-        focusedLabelColor = MaterialTheme.colorScheme.background,
-        unfocusedLabelColor = MaterialTheme.colorScheme.background,
-        focusedTextColor = MaterialTheme.colorScheme.background,
-        unfocusedTextColor = MaterialTheme.colorScheme.background,
-        focusedContainerColor = MaterialTheme.colorScheme.tertiary,
-        unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
-        cursorColor = MaterialTheme.colorScheme.primary
-    )
-
-    Box(modifier = modifier
-        .fillMaxWidth()
-        .background(MaterialTheme.colorScheme.primaryContainer)) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(scrollState)
-                .fillMaxWidth()
-        ) {
-            Text(text = "Add a new Coffee", style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary)
-
-            TextField(value = name, onValueChange = {name = it}, label = { Text("Name") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
-            TextField(value = origin, onValueChange = {origin = it}, label = { Text("Origin") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
-            TextField(value = process, onValueChange = {process = it}, label = { Text("Process") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
-            TextField(value = roastProfile, onValueChange = {roastProfile = it}, label = { Text("Roast Profile") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
-            TextField(value = flavourProfile, onValueChange = {flavourProfile = it}, label = { Text("Flavour Profile") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
-
-            Button(
-                onClick = {
-                    val newCoffee = Coffee(
-                        name = name,
-                        origin = origin,
-                        process = process,
-                        roastProfile = roastProfile,
-                        flavourProfile = flavourProfile
-                    )
-                    onAddCoffee(newCoffee)
-                },
-                modifier = Modifier.align(Alignment.End)
-            ) {
-                Text("Save Coffee")
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

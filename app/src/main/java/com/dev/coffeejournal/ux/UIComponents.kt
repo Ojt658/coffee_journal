@@ -6,21 +6,32 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
@@ -124,5 +135,64 @@ fun CoffeeCardSheet (coffee: Coffee, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.padding(16.dp))
+    }
+}
+
+@Composable
+fun NewCoffeeForm(onAddCoffee: (Coffee) -> Unit, modifier: Modifier = Modifier) {
+    var name by remember { mutableStateOf("") }
+    var origin by remember { mutableStateOf("") }
+    var process by remember { mutableStateOf("") }
+    var roastProfile by remember { mutableStateOf("") }
+    var flavourProfile by remember { mutableStateOf("") }
+
+    val scrollState = rememberScrollState()
+
+    val textFieldColors = TextFieldDefaults.colors(
+        focusedLabelColor = MaterialTheme.colorScheme.background,
+        unfocusedLabelColor = MaterialTheme.colorScheme.background,
+        focusedTextColor = MaterialTheme.colorScheme.background,
+        unfocusedTextColor = MaterialTheme.colorScheme.background,
+        focusedContainerColor = MaterialTheme.colorScheme.tertiary,
+        unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+        cursorColor = MaterialTheme.colorScheme.primary
+    )
+
+    Box(modifier = modifier
+        .fillMaxWidth()
+        .background(MaterialTheme.colorScheme.primaryContainer)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .padding(16.dp)
+                .verticalScroll(scrollState)
+                .fillMaxWidth()
+        ) {
+            Text(text = "Add a new Coffee", style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary)
+
+            TextField(value = name, onValueChange = {name = it}, label = { Text("Name") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
+            TextField(value = origin, onValueChange = {origin = it}, label = { Text("Origin") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
+            TextField(value = process, onValueChange = {process = it}, label = { Text("Process") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
+            TextField(value = roastProfile, onValueChange = {roastProfile = it}, label = { Text("Roast Profile") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
+            TextField(value = flavourProfile, onValueChange = {flavourProfile = it}, label = { Text("Flavour Profile") }, modifier = Modifier.fillMaxWidth(), colors = textFieldColors)
+
+            Button(
+                onClick = {
+                    val newCoffee = Coffee(
+                        name = name,
+                        origin = origin,
+                        process = process,
+                        roastProfile = roastProfile,
+                        flavourProfile = flavourProfile
+                    )
+                    onAddCoffee(newCoffee)
+                },
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text("Save Coffee")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
