@@ -1,8 +1,10 @@
 package com.dev.coffeejournal.data.databases
 
 import android.content.Context
+import android.text.format.DateUtils
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import java.sql.Time
 
 /**
  * Represents a single recipe entry in the database.
@@ -12,7 +14,7 @@ import kotlinx.coroutines.flow.Flow
  * @property brewMethod The brew method used for this recipe.
  * @property dose The dose of coffee used, in grams.
  * @property yield The yield of the brew, in grams.
- * @property duration The duration of the brew, in seconds.
+ * @property extractionTime The duration of the brew, in seconds.
  * @property review A review of the recipe.
  * @property coffeeWheelScoreSweetness The sweetness score from the coffee wheel.
  * @property coffeeWheelScoreBody The body score from the coffee wheel.
@@ -26,16 +28,18 @@ data class Recipe (
     @PrimaryKey(autoGenerate = true) var id: Int? = null,
     var coffeeId: Int,
     var brewMethod: String,
-    var dose: Int,
-    var yield: Int,
-    var duration: Int,
-    var review: String,
+    var dose: Float,
+    var yield: Float,
+    var extractionTime: String,
+    var tds: Float,
     var coffeeWheelScoreSweetness: Int,
     var coffeeWheelScoreBody: Int,
     var coffeeWheelScoreAcidity: Int,
     var coffeeWheelScoreChocolate: Int,
     var coffeeWheelScoreFruity: Int,
-    var coffeeWheelScoreFloral: Int
+    var coffeeWheelScoreFloral: Int,
+    var coffeeWheelScoreAroma: Int,
+    var coffeeWheelScoreOverall: Int
 )
 
 /**
