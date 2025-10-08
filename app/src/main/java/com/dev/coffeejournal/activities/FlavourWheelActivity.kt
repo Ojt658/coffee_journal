@@ -13,10 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import com.dev.coffeejournal.ux.AppBar
+import com.dev.coffeejournal.ui.AppBar
 import com.dev.coffeejournal.R
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
 
+/**
+ * This activity displays the SCAA flavour wheel.
+ */
 class FlavourWheelActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,11 @@ class FlavourWheelActivity : ComponentActivity() {
     }
 }
 
+/**
+ * This composable displays the main content of the Flavour Wheel screen.
+ *
+ * @param modifier The modifier to be applied to the composable.
+ */
 @Composable
 fun FlavourWheelPage(modifier: Modifier = Modifier) {
     Box (modifier = modifier.fillMaxSize()) {

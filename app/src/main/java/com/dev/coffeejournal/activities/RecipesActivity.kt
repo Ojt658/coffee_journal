@@ -13,10 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import com.dev.coffeejournal.ux.AppBar
+import com.dev.coffeejournal.ui.AppBar
 import com.dev.coffeejournal.R
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
 
+/**
+ * This activity displays a list of coffee recipes.
+ */
 class RecipesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,11 @@ class RecipesActivity : ComponentActivity() {
     }
 }
 
+/**
+ * This composable displays the main content of the Recipes screen.
+ *
+ * @param modifier The modifier to be applied to the composable.
+ */
 @Composable
 fun RecipesPage(modifier: Modifier = Modifier) {
     Box (modifier = modifier.fillMaxSize()) {

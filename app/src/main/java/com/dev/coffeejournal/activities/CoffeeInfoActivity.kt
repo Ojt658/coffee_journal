@@ -1,20 +1,16 @@
 package com.dev.coffeejournal.activities
 
-import android.os.Bundle
+import  android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -22,8 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,18 +25,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.dev.coffeejournal.ux.AppBar
+import com.dev.coffeejournal.ui.AppBar
 import com.dev.coffeejournal.ui.CoffeeViewModel
 import com.dev.coffeejournal.ui.CoffeeViewModelFactory
 import com.dev.coffeejournal.R
 import com.dev.coffeejournal.data.Coffee
 import com.dev.coffeejournal.data.CoffeeDatabase
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
-import com.dev.coffeejournal.ux.CoffeeCardList
-import com.dev.coffeejournal.ux.CoffeeCardSheet
-import com.dev.coffeejournal.ux.NewCoffeeForm
+import com.dev.coffeejournal.ui.CoffeeCardList
+import com.dev.coffeejournal.ui.CoffeeCardSheet
+import com.dev.coffeejournal.ui.NewCoffeeForm
 
 
+/**
+ * This activity displays a list of coffees and allows the user to add new coffees.
+ */
 class CoffeeInfoActivity : ComponentActivity() {
     private val viewModel: CoffeeViewModel by viewModels {
         CoffeeViewModelFactory(
@@ -125,6 +122,13 @@ class CoffeeInfoActivity : ComponentActivity() {
     }
 }
 
+/**
+ * This composable displays the main content of the Coffee Info screen.
+ *
+ * @param viewModel The view model for accessing coffee data.
+ * @param modifier The modifier to be applied to the composable.
+ * @param onCoffeeSelected A callback that is invoked when a coffee is selected.
+ */
 @Composable
 fun CoffeeInfoPage(viewModel: CoffeeViewModel, modifier: Modifier = Modifier, onCoffeeSelected: (Coffee) -> Unit) {
     val coffees by viewModel.allCoffees.collectAsState()

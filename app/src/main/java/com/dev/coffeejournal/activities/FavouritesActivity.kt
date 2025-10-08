@@ -27,17 +27,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import com.dev.coffeejournal.ux.AppBar
+import com.dev.coffeejournal.ui.AppBar
 import com.dev.coffeejournal.R
 import com.dev.coffeejournal.data.Coffee
 import com.dev.coffeejournal.data.CoffeeDatabase
 import com.dev.coffeejournal.ui.CoffeeViewModel
 import com.dev.coffeejournal.ui.CoffeeViewModelFactory
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
-import com.dev.coffeejournal.ux.CoffeeCardList
-import com.dev.coffeejournal.ux.CoffeeCardSheet
+import com.dev.coffeejournal.ui.CoffeeCardList
+import com.dev.coffeejournal.ui.CoffeeCardSheet
 import kotlin.getValue
 
+/**
+ * This activity displays a list of the user's favorite coffees.
+ */
 class FavouritesActivity : ComponentActivity() {
 
     private val viewModel: CoffeeViewModel by viewModels {
@@ -93,6 +96,13 @@ class FavouritesActivity : ComponentActivity() {
     }
 }
 
+/**
+ * This composable displays the main content of the Favourites screen.
+ *
+ * @param viewModel The view model for accessing coffee data.
+ * @param modifier The modifier to be applied to the composable.
+ * @param onCoffeeSelected A callback that is invoked when a coffee is selected.
+ */
 @Composable
 fun FavouritesPage(viewModel: CoffeeViewModel, modifier: Modifier = Modifier, onCoffeeSelected: (Coffee) -> Unit) {
     val coffees by viewModel.allFavourites.collectAsState()

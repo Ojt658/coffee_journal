@@ -1,4 +1,4 @@
-package com.dev.coffeejournal.ux
+package com.dev.coffeejournal.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,8 +37,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.dev.coffeejournal.data.Coffee
-import com.dev.coffeejournal.ui.CoffeeViewModel
 
+/**
+ * A custom app bar composable.
+ *
+ * @param title The title to be displayed in the app bar.
+ * @param modifier The modifier to be applied to the app bar.
+ * @param canNavigateBack Whether the app bar should display a back button.
+ * @param navigateUp The action to be performed when the back button is clicked.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(title: String, modifier: Modifier = Modifier, canNavigateBack: Boolean = false, navigateUp: () -> Unit = {}) {
@@ -64,6 +71,14 @@ fun AppBar(title: String, modifier: Modifier = Modifier, canNavigateBack: Boolea
     )
 }
 
+/**
+ * A composable that displays a coffee as a card in a list.
+ *
+ * @param coffee The coffee to be displayed.
+ * @param modifier The modifier to be applied to the card.
+ * @param onCoffeeSelected The action to be performed when the card is clicked.
+ * @param viewModel The view model for updating the coffee's favorite status.
+ */
 @Composable
 fun CoffeeCardList(coffee: Coffee, modifier: Modifier = Modifier, onCoffeeSelected: (Coffee) -> Unit, viewModel: CoffeeViewModel?) {
     Box(modifier = modifier
@@ -108,6 +123,12 @@ fun CoffeeCardList(coffee: Coffee, modifier: Modifier = Modifier, onCoffeeSelect
     }
 }
 
+/**
+ * A composable that displays the details of a coffee in a bottom sheet.
+ *
+ * @param coffee The coffee to be displayed.
+ * @param modifier The modifier to be applied to the bottom sheet.
+ */
 @Composable
 fun CoffeeCardSheet (coffee: Coffee, modifier: Modifier = Modifier) {
     Column(modifier = modifier
@@ -138,6 +159,12 @@ fun CoffeeCardSheet (coffee: Coffee, modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * A composable that displays a form for adding a new coffee.
+ *
+ * @param onAddCoffee The action to be performed when the "Save Coffee" button is clicked.
+ * @param modifier The modifier to be applied to the form.
+ */
 @Composable
 fun NewCoffeeForm(onAddCoffee: (Coffee) -> Unit, modifier: Modifier = Modifier) {
     var name by remember { mutableStateOf("") }

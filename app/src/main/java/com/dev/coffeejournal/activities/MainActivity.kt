@@ -37,10 +37,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dev.coffeejournal.ux.AppBar
+import com.dev.coffeejournal.ui.AppBar
 import com.dev.coffeejournal.R
 import com.dev.coffeejournal.ui.theme.CoffeeJournalTheme
 
+/**
+ * The main activity of the application, which serves as the entry point for the user.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +63,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * The home page of the application, which displays the main menu and navigation options.
+ *
+ * @param name The name to be displayed on the home page.
+ * @param modifier The modifier to be applied to the composable.
+ */
 @Composable
 fun HomePage(name: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current

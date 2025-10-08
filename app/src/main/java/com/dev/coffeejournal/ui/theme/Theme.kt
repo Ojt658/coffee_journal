@@ -11,12 +11,18 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
+/**
+ * The default dark color scheme for the application.
+ */
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
+/**
+ * The default light color scheme for the application.
+ */
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
@@ -33,6 +39,9 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * The light color scheme for the coffee theme.
+ */
 private val LightCoffeeTheme = lightColorScheme(
     primary = Espresso,
     secondary = Coffee,
@@ -41,6 +50,9 @@ private val LightCoffeeTheme = lightColorScheme(
     background = Caramel
 )
 
+/**
+ * The dark color scheme for the coffee theme.
+ */
 private val DarkCoffeeTheme = darkColorScheme(
     primary = Vanilla,
     secondary = Almond,
@@ -49,6 +61,15 @@ private val DarkCoffeeTheme = darkColorScheme(
     background = Coffee
 )
 
+/**
+ * The main theme for the Coffee Journal application.
+ *
+ * This theme applies a custom color scheme and typography to the application.
+ *
+ * @param darkTheme Whether to use the dark theme or not.
+ * @param dynamicColor Whether to use dynamic colors (available on Android 12+).
+ * @param content The content to be displayed within the theme.
+ */
 @Composable
 fun CoffeeJournalTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

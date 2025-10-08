@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel for managing coffee data.
+ *
+ * @param dao The Data Access Object for coffees.
+ */
 class CoffeeViewModel(private val dao: CoffeeDao) : ViewModel() {
 
     /**
@@ -22,6 +27,10 @@ class CoffeeViewModel(private val dao: CoffeeDao) : ViewModel() {
             initialValue = emptyList()
         )
 
+    /**
+     * Holds the list of all favourite coffees from the database as a StateFlow.
+     * The UI will collect this flow to get updates automatically.
+     */
     val allFavourites: StateFlow<List<Coffee>> = dao.getAllFavourites()
         .stateIn(
             scope = viewModelScope,
@@ -38,6 +47,9 @@ class CoffeeViewModel(private val dao: CoffeeDao) : ViewModel() {
         }
     }
 
+    /**
+     * Updates a coffee in the database on a background thread.
+     */
     fun updateCoffee(coffee: Coffee) {
         viewModelScope.launch {
             dao.update(coffee)

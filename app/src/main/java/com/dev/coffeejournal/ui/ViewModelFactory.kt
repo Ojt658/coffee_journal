@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dev.coffeejournal.data.CoffeeDao
 import com.dev.coffeejournal.data.RecipeDao
-import com.dev.coffeejournal.ux.RecipeViewModel
 
+/**
+ * Factory for creating [CoffeeViewModel] instances.
+ * @param dao The [CoffeeDao] instance.
+ */
 class CoffeeViewModelFactory(private val dao: CoffeeDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CoffeeViewModel::class.java)) {
@@ -16,6 +19,10 @@ class CoffeeViewModelFactory(private val dao: CoffeeDao) : ViewModelProvider.Fac
     }
 }
 
+/**
+ * Factory for creating [RecipeViewModel] instances.
+ * @param dao The [RecipeDao] instance.
+ */
 class RecipeViewModelFactory(private val dao: RecipeDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RecipeViewModel::class.java)) {
