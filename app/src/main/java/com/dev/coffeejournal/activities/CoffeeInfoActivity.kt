@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.CircleShape
@@ -132,13 +133,14 @@ class CoffeeInfoActivity : ComponentActivity() {
 @Composable
 fun CoffeeInfoPage(viewModel: CoffeeViewModel, modifier: Modifier = Modifier, onCoffeeSelected: (Coffee) -> Unit) {
     val coffees by viewModel.allCoffees.collectAsState()
-    Box (modifier = modifier.fillMaxSize()) {
-        Image (
-            painter = painterResource(id = R.drawable.coffee_beans_background),
-            contentDescription = "Background",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
+    Box (modifier = modifier.fillMaxSize()
+        .background(MaterialTheme.colorScheme.background)) {
+//        Image (
+//            painter = painterResource(id = R.drawable.coffee_beans_background),
+//            contentDescription = "Background",
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier.fillMaxSize()
+//        )
         when {
             coffees.isEmpty() -> Text(
                 text = "No coffees to display",

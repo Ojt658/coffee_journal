@@ -58,8 +58,9 @@ private val DarkCoffeeTheme = darkColorScheme(
     secondary = Almond,
     tertiary = Caramel,
     primaryContainer = Coffee,
-    background = Coffee
+    background = Vanilla
 )
+
 
 /**
  * The main theme for the Coffee Journal application.
@@ -88,7 +89,7 @@ fun CoffeeJournalTheme(
     }
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = DarkCoffeeTheme,
         typography = Typography,
         content = content
     )

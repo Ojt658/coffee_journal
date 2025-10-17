@@ -1,13 +1,12 @@
 package com.dev.coffeejournal.activities
 
 import android.os.Bundle
-import android.text.format.DateUtils
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -101,7 +100,7 @@ class RecordActivity : ComponentActivity() {
                             "Record a Brew",
                             canNavigateBack = true,
                             navigateUp = { finish() })
-                    }, floatingActionButton = {
+                    }/*, floatingActionButton = {
                         FloatingActionButton(
                             onClick = {},
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -115,13 +114,14 @@ class RecordActivity : ComponentActivity() {
                                 )
                             }
                         )
-                    }
+                    }*/
                 ) { innerPadding ->
                     RecordPage(
                         coffeeViewModel, recipeViewModel,
                         newlyAddedCoffee = newCoffeeSelection,
                         onNewCoffeeClick = { showAddCoffeeSheet = true },
                         onNewCoffeeHandled = { newCoffeeSelection = null },
+                        onNewBrewRecorded = { finish() },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -155,7 +155,10 @@ class RecordActivity : ComponentActivity() {
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewModel, newlyAddedCoffee: Coffee?, onNewCoffeeHandled: () -> Unit, onNewCoffeeClick: () -> Unit, modifier: Modifier = Modifier) {
+fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewModel,
+               newlyAddedCoffee: Coffee?, onNewCoffeeHandled: () -> Unit,
+               onNewCoffeeClick: () -> Unit, onNewBrewRecorded: () -> Unit,
+               modifier: Modifier = Modifier) {
     val coffees by coffeeViewModel.allCoffees.collectAsState(initial = emptyList())
     var expandedCoffees by remember { mutableStateOf(false) }
     var selectedCoffee by remember { mutableStateOf<Coffee?>(null) }
@@ -213,13 +216,14 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
     var aroma by remember { mutableFloatStateOf(0f) }
     var overall by remember { mutableFloatStateOf(0f) }
 
-    Box (modifier = modifier.fillMaxSize()) {
-        Image (
-            painter = painterResource(id = R.drawable.coffee_beans_background),
-            contentDescription = "Background",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
+    Box (modifier = modifier.fillMaxSize()
+        .background(MaterialTheme.colorScheme.background)) {
+//        Image (
+//            painter = painterResource(id = R.drawable.coffee_beans_background),
+//            contentDescription = "Background",
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier.fillMaxSize()
+//        )
 
         Column (
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -229,7 +233,7 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Text(text = "Basic Information", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            Text(text = "Basic Information", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.tertiary)
             // Coffee selection
             ExposedDropdownMenuBox(
                 expanded = expandedCoffees,
@@ -310,7 +314,7 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
             }
 
             // Recipe information
-            Text(text = "Recipe Details", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            Text(text = "Recipe Details", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.tertiary)
 
             Row (modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -358,7 +362,7 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
             }
             
             // Ratings information : coffee wheel
-            Text(text = "Taste Ratings", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            Text(text = "Taste Ratings", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.tertiary)
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 RatingSlider(label = "Sweetness", value = sweetness, onValueChange = { sweetness = it })
@@ -393,6 +397,7 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                         )
 
                         recipeViewModel.addRecipe(newRecipe)
+                        onNewBrewRecorded()
                     },
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.primary,
@@ -418,7 +423,7 @@ fun RatingSlider(label: String, value: Float, onValueChange: (Float) -> Unit) {
         Text(
             text = label,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.tertiary,
             modifier = Modifier.width(85.dp),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
@@ -430,7 +435,7 @@ fun RatingSlider(label: String, value: Float, onValueChange: (Float) -> Unit) {
             steps = 9,
             modifier = Modifier.weight(1f),
             colors = SliderDefaults.colors(
-                thumbColor = MaterialTheme.colorScheme.primary,
+                thumbColor = MaterialTheme.colorScheme.primaryContainer,
                 activeTrackColor = MaterialTheme.colorScheme.tertiary,
                 inactiveTrackColor = MaterialTheme.colorScheme.tertiary,
                 activeTickColor = MaterialTheme.colorScheme.background,
