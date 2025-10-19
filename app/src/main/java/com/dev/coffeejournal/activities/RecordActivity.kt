@@ -190,7 +190,7 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
         }
     }
     
-    val methods = listOf("Espresso", "Chemex", "V60", "AeroPress", "French Press", "Batch Brew")
+    val methods = listOf("Espresso", "Chemex", "V60", "AeroPress", "French Press", "Batch Brew", "Siphon")
     var expandedMethods by remember { mutableStateOf(false) }
     var selectedMethod by remember { mutableStateOf<String?>(null) }
 
