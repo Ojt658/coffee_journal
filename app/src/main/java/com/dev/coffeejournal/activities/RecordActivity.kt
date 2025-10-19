@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -51,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.dev.coffeejournal.ui.AppBar
@@ -320,16 +322,28 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                 horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 TextField(
                     value = if (dose == 0f) "" else dose.toString(),
-                    onValueChange = {dose = it.toFloat()},
+                    onValueChange = {
+                        try {
+                            dose = it.toFloat()
+                        } catch (e: NumberFormatException) {
+                            println("Invalid dose input: $it")
+                        }},
                     label = { Text("Dose (g)") },
                     colors = textFieldColors,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(1f)
                 )
                 TextField(
                     value = if (yield == 0f) "" else yield.toString(),
-                    onValueChange = {yield = it.toFloat()},
+                    onValueChange = {
+                        try {
+                            yield = it.toFloat()
+                        } catch (e: NumberFormatException) {
+                            println("Invalid yield input: $it")
+                        }},
                     label = { Text("Yield (g)") },
                     colors = textFieldColors,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -341,8 +355,9 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                 TextField(
                     value = extractionTime,
                     onValueChange = {extractionTime = it},
-                    label = { Text("Extraction Time (min:s)") },
+                    label = { Text("Extraction Time (min-s)") },
                     colors = textFieldColors,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(1f)
                 )
                 TextField(
@@ -355,6 +370,7 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                         } },
                     label = { Text("TDS") },
                     colors = textFieldColors,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
@@ -438,7 +454,7 @@ fun RatingSlider(label: String, value: Float, onValueChange: (Float) -> Unit) {
                 thumbColor = MaterialTheme.colorScheme.primaryContainer,
                 activeTrackColor = MaterialTheme.colorScheme.tertiary,
                 inactiveTrackColor = MaterialTheme.colorScheme.tertiary,
-                activeTickColor = MaterialTheme.colorScheme.background,
+                activeTickColor = MaterialTheme.colorScheme.primaryContainer,
                 inactiveTickColor = MaterialTheme.colorScheme.primary
 
             )
