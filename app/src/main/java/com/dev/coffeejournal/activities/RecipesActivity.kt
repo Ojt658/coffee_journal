@@ -10,12 +10,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -67,6 +75,21 @@ class RecipesActivity : ComponentActivity() {
                             "Recipes",
                             canNavigateBack = true,
                             navigateUp = { finish() })
+                    }, floatingActionButton = {
+                        when {
+                            !filterBy ->
+                                FloatingActionButton(
+                                    onClick = { filterBy = true },
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.primary,
+                                    content = {
+                                        Icon(Icons.Filled.FilterList, contentDescription = "Filter")
+                                    }
+                                )
+
+                            else ->
+                                null
+                        }
                     }
                 ) { innerPadding ->
                     when {
@@ -116,7 +139,7 @@ fun RecipesPage(recipeViewModel: RecipeViewModel, coffeeViewModel: CoffeeViewMod
             else ->
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(recipes) { recipe ->
-                        RecipeCard(recipe = recipe)
+                        RecipeCard(recipe = recipe, coffeeViewModel = coffeeViewModel)
                     }
                 }
 
@@ -125,8 +148,15 @@ fun RecipesPage(recipeViewModel: RecipeViewModel, coffeeViewModel: CoffeeViewMod
 }
 
 @Composable
-fun RecipeCard(recipe: Recipe) {
-    Text(text = recipe.id.toString(), style = MaterialTheme.typography.headlineMedium)
+fun RecipeCard(recipe: Recipe, coffeeViewModel: CoffeeViewModel) {
+    Row (verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.0.dp)) {
+        Text(text = coffeeViewModel.getCoffeeOrigin(recipe.coffeeId), style = MaterialTheme.typography.headlineMedium)
+        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Forward Arrow")
+        Text(text = recipe.brewMethod, style = MaterialTheme.typography.headlineMedium)
+        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Forward Arrow")
+        Text(text = recipe.coffeeWheelScoreOverall.toString(), style = MaterialTheme.typography.headlineMedium)
+    }
 }
 
 @Composable
@@ -139,20 +169,30 @@ fun FilterPage(modifier: Modifier = Modifier, onFilterSelected: (String) -> Unit
         .background(MaterialTheme.colorScheme.background)) {
         Column (modifier = Modifier.padding(16.0.dp),
             verticalArrangement = Arrangement.spacedBy(16.0.dp)) {
-            Row (horizontalArrangement = Arrangement.spacedBy(16.0.dp)) {
-                Button(modifier = Modifier.weight(1f),
-                    onClick = {onFilterSelected("Coffee")},
-                    colors = btnDefaults) {
-                    Text(text = "Coffee")
-                }
-                Button(modifier = Modifier.weight(1f),
-                    onClick = {onFilterSelected("Method")},
-                    colors = btnDefaults) {
-                    Text(text = "Method")
+            Row (modifier = Modifier.height(200.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.0.dp)) {
+                Button(
+                    modifier = Modifier.weight(1f)
+                        .fillMaxHeight(),
+                    onClick = { onFilterSelected("Coffee") },
+                    colors = btnDefaults
+                ) {
+                    Text(text = "Coffee Origin")
                 }
             }
-            Row {
-                Button(modifier = Modifier.weight(1f),
+            Row (modifier = Modifier.height(200.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.0.dp)) {
+                Button(modifier = Modifier.weight(1f)
+                    .fillMaxHeight(),
+                    onClick = {onFilterSelected("Method")},
+                    colors = btnDefaults) {
+                    Text(text = "Brew Method")
+                }
+            }
+            Row (modifier = Modifier.height(200.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.0.dp)) {
+                Button(modifier = Modifier.weight(1f)
+                    .fillMaxHeight(),
                     onClick = {onFilterSelected("Score")},
                     colors = btnDefaults) {
                     Text(text = "Overall Score")

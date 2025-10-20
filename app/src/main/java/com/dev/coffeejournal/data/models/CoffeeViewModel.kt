@@ -55,5 +55,10 @@ class CoffeeViewModel(private val dao: CoffeeDao) : ViewModel() {
             dao.update(coffee)
         }
     }
+
+    fun getCoffeeOrigin(coffeeId: Int): String {
+        val coffee = allCoffees.value.find { it.id == coffeeId }
+        return coffee?.origin ?: ""
+    }
 }
     
