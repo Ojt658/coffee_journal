@@ -208,7 +208,9 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
     var yield by remember { mutableFloatStateOf(0f) }
     var extractionTime by remember { mutableStateOf("") }
     var tds by remember { mutableFloatStateOf(0f) }
-    
+    var grinder by remember { mutableStateOf("") }
+    var grindSize by remember { mutableFloatStateOf(0f) }
+
     var sweetness by remember { mutableFloatStateOf(0f) }
     var body by remember { mutableFloatStateOf(0f) }
     var acidity by remember { mutableFloatStateOf(0f) }
@@ -376,6 +378,33 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                         .fillMaxHeight()
                 )
             }
+
+            Row (modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                TextField(
+                    value = grinder,
+                    onValueChange = {grinder = it},
+                    label = { Text("Grinder")},
+                    colors = textFieldColors,
+                    modifier = Modifier.weight(1f)
+                )
+
+                TextField(
+                    value = if (grindSize == 0f) "" else grindSize.toString(),
+                    onValueChange = {
+                        try {
+                            grindSize = it.toFloat()
+                        } catch (e: NumberFormatException) {
+                            println("Invalid grind size input: $it")
+                        }
+
+                    },
+                    colors = textFieldColors,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    label = { Text("Grind Size") },
+                    modifier = Modifier.weight(1f)
+                )
+            }
             
             // Ratings information : coffee wheel
             Text(text = "Taste Ratings", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.tertiary)
@@ -402,6 +431,8 @@ fun RecordPage(coffeeViewModel: CoffeeViewModel, recipeViewModel: RecipeViewMode
                             yield = yield,
                             extractionTime = extractionTime,
                             tds = tds,
+                            grinder = grinder,
+                            grindSize = grindSize,
                             coffeeWheelScoreSweetness = sweetness.toInt(),
                             coffeeWheelScoreBody = body.toInt(),
                             coffeeWheelScoreAcidity = acidity.toInt(),

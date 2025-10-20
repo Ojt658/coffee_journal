@@ -32,6 +32,8 @@ data class Recipe (
     var yield: Float,
     var extractionTime: String,
     var tds: Float,
+    var grinder: String,
+    var grindSize: Float,
     var coffeeWheelScoreSweetness: Int,
     var coffeeWheelScoreBody: Int,
     var coffeeWheelScoreAcidity: Int,
